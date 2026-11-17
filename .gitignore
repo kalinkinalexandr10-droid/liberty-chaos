@@ -1,0 +1,7 @@
+# портативный Node.js — у хостинга свой
+tools/node/
+# зависимости и данные сайта
+site/node_modules/
+site/data/
+site/files/
+site/.claude/

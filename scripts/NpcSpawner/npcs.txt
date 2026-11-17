@@ -1,0 +1,444 @@
+# Format: MODEL | Name in menu | Category
+# All GTA IV ped models from common\data\peds.ide (PLAYER/SUPERLOD excluded)
+
+IG_ANNA | Anna | Story characters
+IG_ANTHONY | Anthony | Story characters
+IG_BADMAN | Badman | Story characters
+IG_BERNIE_CRANE | Bernie Crane | Story characters
+IG_BLEDAR | Bledar | Story characters
+IG_BRIAN | Brian | Story characters
+IG_BRUCIE | Brucie | Story characters
+IG_BULGARIN | Bulgarin | Story characters
+IG_CHARISE | Charise | Story characters
+IG_CHARLIEUC | Charlieuc | Story characters
+IG_CLARENCE | Clarence | Story characters
+IG_DARDAN | Dardan | Story characters
+IG_DARKO | Darko | Story characters
+IG_DERRICK_MC | Derrick Mc | Story characters
+IG_DMITRI | Dmitri | Story characters
+IG_DWAYNE | Dwayne | Story characters
+IG_EDDIELOW | Eddielow | Story characters
+IG_FAUSTIN | Faustin | Story characters
+IG_FRANCIS_MC | Francis Mc | Story characters
+IG_FRENCH_TOM | French Tom | Story characters
+IG_GORDON | Gordon | Story characters
+IG_GRACIE | Gracie | Story characters
+IG_HOSSAN | Hossan | Story characters
+IG_ILYENA | Ilyena | Story characters
+IG_ISAAC | Isaac | Story characters
+IG_IVAN | Ivan | Story characters
+IG_JASON | Jason | Story characters
+IG_JAY | Jay | Story characters
+IG_JEFF | Jeff | Story characters
+IG_JIMMY | Jimmy | Story characters
+IG_JOHNNYBIKER | Johnnybiker | Story characters
+IG_KATEMC | Katemc | Story characters
+IG_KENNY | Kenny | Story characters
+IG_LILJACOB | Liljacob | Story characters
+IG_LILJACOBW | Liljacobw | Story characters
+IG_LUCA | Luca | Story characters
+IG_LUIS | Luis | Story characters
+IG_MALLORIE | Mallorie | Story characters
+IG_MAMC | Mamc | Story characters
+IG_MANNY | Manny | Story characters
+IG_MARNIE | Marnie | Story characters
+IG_MEL | Mel | Story characters
+IG_MICHAEL | Michael | Story characters
+IG_MICHELLE | Michelle | Story characters
+IG_MICKEY | Mickey | Story characters
+IG_PACKIE_MC | Packie Mc | Story characters
+IG_PATHOS | Pathos | Story characters
+IG_PETROVIC | Petrovic | Story characters
+IG_PHIL_BELL | Phil Bell | Story characters
+IG_PLAYBOY_X | Playboy X | Story characters
+IG_RAY_BOCCINO | Ray Boccino | Story characters
+IG_RICKY | Ricky | Story characters
+IG_ROMAN | Roman | Story characters
+IG_ROMANW | Romanw | Story characters
+IG_SARAH | Sarah | Story characters
+IG_TUNA | Tuna | Story characters
+IG_VINNY_SPAZ | Vinny Spaz | Story characters
+IG_VLAD | Vlad | Story characters
+
+CS_ANDREI | Andrei | Cutscene characters
+CS_ANGIE | Angie | Cutscene characters
+CS_ANTHONY | Anthony | Cutscene characters
+CS_ASHLEY | Ashley | Cutscene characters
+CS_ASSISTANT | Assistant | Cutscene characters
+CS_BADMAN | Badman | Cutscene characters
+CS_BERNIE_CRANEC | Bernie Cranec | Cutscene characters
+CS_BERNIE_CRANET | Bernie Cranet | Cutscene characters
+CS_BERNIE_CRANEW | Bernie Cranew | Cutscene characters
+CS_BLEDAR | Bledar | Cutscene characters
+CS_BRIAN | Brian | Cutscene characters
+CS_BRUCIE_B | Brucie B | Cutscene characters
+CS_BRUCIE_T | Brucie T | Cutscene characters
+CS_BRUCIE_W | Brucie W | Cutscene characters
+CS_BULGARIN | Bulgarin | Cutscene characters
+CS_BULGARINHENCH | Bulgarinhench | Cutscene characters
+CS_CAPTAIN | Captain | Cutscene characters
+CS_CHARISE | Charise | Cutscene characters
+CS_CHARLIEUC | Charlieuc | Cutscene characters
+CS_CIA | Cia | Cutscene characters
+CS_CLARENCE | Clarence | Cutscene characters
+CS_DARDAN | Dardan | Cutscene characters
+CS_DARKO | Darko | Cutscene characters
+CS_DAVETHEMATE | Davethemate | Cutscene characters
+CS_DERRICKMC_B | Derrickmc B | Cutscene characters
+CS_DERRICKMC_D | Derrickmc D | Cutscene characters
+CS_DMITRI | Dmitri | Cutscene characters
+CS_DWAYNE | Dwayne | Cutscene characters
+CS_EDDIELOW | Eddielow | Cutscene characters
+CS_EDTHEMATE | Edthemate | Cutscene characters
+CS_ELI_JESTER | Eli Jester | Cutscene characters
+CS_ELIZABETA | Elizabeta | Cutscene characters
+CS_FAUSTIN | Faustin | Cutscene characters
+CS_FRANCIS | Francis | Cutscene characters
+CS_GAYTONY | Gaytony | Cutscene characters
+CS_GERRYMC | Gerrymc | Cutscene characters
+CS_GORDON | Gordon | Cutscene characters
+CS_GRACIE | Gracie | Cutscene characters
+CS_HOSSAN | Hossan | Cutscene characters
+CS_ILYENA | Ilyena | Cutscene characters
+CS_ISSAC | Issac | Cutscene characters
+CS_IVAN | Ivan | Cutscene characters
+CS_JAY | Jay | Cutscene characters
+CS_JEFF | Jeff | Cutscene characters
+CS_JIMMY_PEGORINO | Jimmy Pegorino | Cutscene characters
+CS_JOHNNYTHEBIKER | Johnnythebiker | Cutscene characters
+CS_JONGRAVELLI | Jongravelli | Cutscene characters
+CS_JORGE | Jorge | Cutscene characters
+CS_KAT | Kat | Cutscene characters
+CS_KATEMC_D | Katemc D | Cutscene characters
+CS_KATEMC_W | Katemc W | Cutscene characters
+CS_KILLER | Killer | Cutscene characters
+CS_LILJACOB_B | Liljacob B | Cutscene characters
+CS_LILJACOB_J | Liljacob J | Cutscene characters
+CS_LUIS | Luis | Cutscene characters
+CS_MAGICIAN | Magician | Cutscene characters
+CS_MALLORIE_D | Mallorie D | Cutscene characters
+CS_MALLORIE_J | Mallorie J | Cutscene characters
+CS_MALLORIE_W | Mallorie W | Cutscene characters
+CS_MAMC | Mamc | Cutscene characters
+CS_MANNY | Manny | Cutscene characters
+CS_MARNIE | Marnie | Cutscene characters
+CS_MARSHAL | Marshal | Cutscene characters
+CS_MEL | Mel | Cutscene characters
+CS_MELODY | Melody | Cutscene characters
+CS_MICHAEL_B | Michael B | Cutscene characters
+CS_MICHAEL_D | Michael D | Cutscene characters
+CS_MICHELLE | Michelle | Cutscene characters
+CS_MICKEY | Mickey | Cutscene characters
+CS_MITCHCOP | Mitchcop | Cutscene characters
+CS_MORI | Mori | Cutscene characters
+CS_OFFICIAL | Official | Cutscene characters
+CS_PACKIEMC_B | Packiemc B | Cutscene characters
+CS_PACKIEMC_D | Packiemc D | Cutscene characters
+CS_PATHOS | Pathos | Cutscene characters
+CS_PBXGIRL2 | Pbxgirl2 | Cutscene characters
+CS_PHILB | Philb | Cutscene characters
+CS_PLAYBOYX | Playboyx | Cutscene characters
+CS_PRIEST | Priest | Cutscene characters
+CS_RAY_BOCCINO | Ray Boccino | Cutscene characters
+CS_RICKY | Ricky | Cutscene characters
+CS_ROMAN_D | Roman D | Cutscene characters
+CS_ROMAN_T | Roman T | Cutscene characters
+CS_ROMAN_W | Roman W | Cutscene characters
+CS_SARAH | Sarah | Cutscene characters
+CS_SERGEI | Sergei | Cutscene characters
+CS_TOMMY | Tommy | Cutscene characters
+CS_TRAMP | Tramp | Cutscene characters
+CS_VLAD | Vlad | Cutscene characters
+CS_WHIPPINGGIRL | Whippinggirl | Cutscene characters
+
+M_Y_AIRWORKER | Airworker | Men (young)
+M_Y_BARMAN_01 | Barman 01 | Men (young)
+M_Y_BOHO_01 | Boho 01 | Men (young)
+M_Y_BOHOGUY_01 | Bohoguy 01 | Men (young)
+M_Y_BOUNCER_01 | Bouncer 01 | Men (young)
+M_Y_BOUNCER_02 | Bouncer 02 | Men (young)
+M_Y_BOWL_01 | Bowl 01 | Men (young)
+M_Y_BOWL_02 | Bowl 02 | Men (young)
+M_Y_BRONX_01 | Bronx 01 | Men (young)
+M_Y_BUSINESS_01 | Business 01 | Men (young)
+M_Y_BUSINESS_02 | Business 02 | Men (young)
+M_Y_CHINATOWN_03 | Chinatown 03 | Men (young)
+M_Y_CHINVEND_01 | Chinvend 01 | Men (young)
+M_Y_CHOPSHOP_01 | Chopshop 01 | Men (young)
+M_Y_CHOPSHOP_02 | Chopshop 02 | Men (young)
+M_Y_CLUBFIT | Clubfit | Men (young)
+M_Y_CONSTRUCT_01 | Construct 01 | Men (young)
+M_Y_CONSTRUCT_02 | Construct 02 | Men (young)
+M_Y_CONSTRUCT_03 | Construct 03 | Men (young)
+M_Y_COP | Cop | Men (young)
+M_Y_COP_TRAFFIC | Cop Traffic | Men (young)
+M_Y_COURIER | Courier | Men (young)
+M_Y_COWBOY_01 | Cowboy 01 | Men (young)
+M_Y_DEALER | Dealer | Men (young)
+M_Y_DODGY_01 | Dodgy 01 | Men (young)
+M_Y_DORK_02 | Dork 02 | Men (young)
+M_Y_DOWNTOWN_01 | Downtown 01 | Men (young)
+M_Y_DOWNTOWN_02 | Downtown 02 | Men (young)
+M_Y_DOWNTOWN_03 | Downtown 03 | Men (young)
+M_Y_DRUG_01 | Drug 01 | Men (young)
+M_Y_FF_BURGER_R | Ff Burger R | Men (young)
+M_Y_FF_CLUCK_R | Ff Cluck R | Men (young)
+M_Y_FF_RSCAFE | Ff Rscafe | Men (young)
+M_Y_FF_TWCAFE | Ff Twcafe | Men (young)
+M_Y_FF_WSPIZZA_R | Ff Wspizza R | Men (young)
+M_Y_FIREMAN | Fireman | Men (young)
+M_Y_FRENCHTOM | Frenchtom | Men (young)
+M_Y_GAFR_HI_01 | Gafr Hi 01 | Men (young)
+M_Y_GAFR_HI_02 | Gafr Hi 02 | Men (young)
+M_Y_GAFR_LO_01 | Gafr Lo 01 | Men (young)
+M_Y_GAFR_LO_02 | Gafr Lo 02 | Men (young)
+M_Y_GALB_LO_01 | Galb Lo 01 | Men (young)
+M_Y_GALB_LO_02 | Galb Lo 02 | Men (young)
+M_Y_GALB_LO_03 | Galb Lo 03 | Men (young)
+M_Y_GALB_LO_04 | Galb Lo 04 | Men (young)
+M_Y_GARBAGE | Garbage | Men (young)
+M_Y_GAYYOUNG | Gayyoung | Men (young)
+M_Y_GBIK_HI_01 | Gbik Hi 01 | Men (young)
+M_Y_GBIK_HI_02 | Gbik Hi 02 | Men (young)
+M_Y_GBIK_LO_01 | Gbik Lo 01 | Men (young)
+M_Y_GBIK_LO_02 | Gbik Lo 02 | Men (young)
+M_Y_GBIK02_LO_02 | Gbik02 Lo 02 | Men (young)
+M_Y_GENSTREET_11 | Genstreet 11 | Men (young)
+M_Y_GENSTREET_16 | Genstreet 16 | Men (young)
+M_Y_GENSTREET_20 | Genstreet 20 | Men (young)
+M_Y_GENSTREET_34 | Genstreet 34 | Men (young)
+M_Y_GIRI_LO_01 | Giri Lo 01 | Men (young)
+M_Y_GIRI_LO_02 | Giri Lo 02 | Men (young)
+M_Y_GIRI_LO_03 | Giri Lo 03 | Men (young)
+M_Y_GJAM_LO_01 | Gjam Lo 01 | Men (young)
+M_Y_GJAM_LO_02 | Gjam Lo 02 | Men (young)
+M_Y_GKOR_LO_01 | Gkor Lo 01 | Men (young)
+M_Y_GKOR_LO_02 | Gkor Lo 02 | Men (young)
+M_Y_GLAT_HI_01 | Glat Hi 01 | Men (young)
+M_Y_GLAT_HI_02 | Glat Hi 02 | Men (young)
+M_Y_GLAT_LO_01 | Glat Lo 01 | Men (young)
+M_Y_GLAT_LO_02 | Glat Lo 02 | Men (young)
+M_Y_GMAF_HI_01 | Gmaf Hi 01 | Men (young)
+M_Y_GMAF_HI_02 | Gmaf Hi 02 | Men (young)
+M_Y_GMAF_LO_01 | Gmaf Lo 01 | Men (young)
+M_Y_GMAF_LO_02 | Gmaf Lo 02 | Men (young)
+M_Y_GOON_01 | Goon 01 | Men (young)
+M_Y_GRU2_LO_01 | Gru2 Lo 01 | Men (young)
+M_Y_GRUS_HI_02 | Grus Hi 02 | Men (young)
+M_Y_GRUS_LO_01 | Grus Lo 01 | Men (young)
+M_Y_GRUS_LO_02 | Grus Lo 02 | Men (young)
+M_Y_GTRI_LO_01 | Gtri Lo 01 | Men (young)
+M_Y_GTRI_LO_02 | Gtri Lo 02 | Men (young)
+M_Y_GYMGUY_01 | Gymguy 01 | Men (young)
+M_Y_HARDMAN_01 | Hardman 01 | Men (young)
+M_Y_HARLEM_01 | Harlem 01 | Men (young)
+M_Y_HARLEM_02 | Harlem 02 | Men (young)
+M_Y_HARLEM_04 | Harlem 04 | Men (young)
+M_Y_HASID_01 | Hasid 01 | Men (young)
+M_Y_JIM_FITZ | Jim Fitz | Men (young)
+M_Y_LEASTSIDE_01 | Leastside 01 | Men (young)
+M_Y_MECHANIC_02 | Mechanic 02 | Men (young)
+M_Y_MODO | Modo | Men (young)
+M_Y_MULTIPLAYER | Multiplayer | Men (young)
+M_Y_NHELIPILOT | Nhelipilot | Men (young)
+M_Y_PBRONX_01 | Pbronx 01 | Men (young)
+M_Y_PCOOL_01 | Pcool 01 | Men (young)
+M_Y_PCOOL_02 | Pcool 02 | Men (young)
+M_Y_PEASTEURO_01 | Peasteuro 01 | Men (young)
+M_Y_PERSEUS | Perseus | Men (young)
+M_Y_PHARBRON_01 | Pharbron 01 | Men (young)
+M_Y_PHARLEM_01 | Pharlem 01 | Men (young)
+M_Y_PINDUS_01 | Pindus 01 | Men (young)
+M_Y_PINDUS_02 | Pindus 02 | Men (young)
+M_Y_PINDUS_03 | Pindus 03 | Men (young)
+M_Y_PJERSEY_01 | Pjersey 01 | Men (young)
+M_Y_PLATIN_01 | Platin 01 | Men (young)
+M_Y_PLATIN_02 | Platin 02 | Men (young)
+M_Y_PLATIN_03 | Platin 03 | Men (young)
+M_Y_PMANHAT_01 | Pmanhat 01 | Men (young)
+M_Y_PMANHAT_02 | Pmanhat 02 | Men (young)
+M_Y_PMEDIC | Pmedic | Men (young)
+M_Y_PORIENT_01 | Porient 01 | Men (young)
+M_Y_PQUEENS_01 | Pqueens 01 | Men (young)
+M_Y_PRICH_01 | Prich 01 | Men (young)
+M_Y_PRISON | Prison | Men (young)
+M_Y_PRISONAOM | Prisonaom | Men (young)
+M_Y_PVILLBO_01 | Pvillbo 01 | Men (young)
+M_Y_PVILLBO_02 | Pvillbo 02 | Men (young)
+M_Y_PVILLBO_03 | Pvillbo 03 | Men (young)
+M_Y_QUEENSBRIDGE | Queensbridge | Men (young)
+M_Y_ROMANCAB | Romancab | Men (young)
+M_Y_RUNNER | Runner | Men (young)
+M_Y_SHADY_02 | Shady 02 | Men (young)
+M_Y_SHOPASST_01 | Shopasst 01 | Men (young)
+M_Y_SKATEBIKE_01 | Skatebike 01 | Men (young)
+M_Y_SOHO_01 | Soho 01 | Men (young)
+M_Y_STREET_01 | Street 01 | Men (young)
+M_Y_STREET_03 | Street 03 | Men (young)
+M_Y_STREET_04 | Street 04 | Men (young)
+M_Y_STREETBLK_02 | Streetblk 02 | Men (young)
+M_Y_STREETBLK_03 | Streetblk 03 | Men (young)
+M_Y_STREETPUNK_02 | Streetpunk 02 | Men (young)
+M_Y_STREETPUNK_04 | Streetpunk 04 | Men (young)
+M_Y_STREETPUNK_05 | Streetpunk 05 | Men (young)
+M_Y_STROOPER | Strooper | Men (young)
+M_Y_SWAT | Swat | Men (young)
+M_Y_SWORDSWALLOW | Swordswallow | Men (young)
+M_Y_THIEF | Thief | Men (young)
+M_Y_TOUGH_05 | Tough 05 | Men (young)
+M_Y_TOURIST_02 | Tourist 02 | Men (young)
+M_Y_VALET | Valet | Men (young)
+M_Y_VENDOR | Vendor | Men (young)
+
+M_M_ALCOHOLIC | Alcoholic | Men (middle-aged)
+M_M_ARMOURED | Armoured | Men (middle-aged)
+M_M_BUSDRIVER | Busdriver | Men (middle-aged)
+M_M_BUSINESS_02 | Business 02 | Men (middle-aged)
+M_M_BUSINESS_03 | Business 03 | Men (middle-aged)
+M_M_CHINATOWN_01 | Chinatown 01 | Men (middle-aged)
+M_M_CRACKHEAD | Crackhead | Men (middle-aged)
+M_M_DOC_SCRUBS_01 | Doc Scrubs 01 | Men (middle-aged)
+M_M_DOCTOR_01 | Doctor 01 | Men (middle-aged)
+M_M_DODGYDOC | Dodgydoc | Men (middle-aged)
+M_M_EE_HEAVY_01 | Ee Heavy 01 | Men (middle-aged)
+M_M_EE_HEAVY_02 | Ee Heavy 02 | Men (middle-aged)
+M_M_EECOOK | Eecook | Men (middle-aged)
+M_M_ENFORCER | Enforcer | Men (middle-aged)
+M_M_FACTORY_01 | Factory 01 | Men (middle-aged)
+M_M_FATCOP_01 | Fatcop 01 | Men (middle-aged)
+M_M_FATMOB_01 | Fatmob 01 | Men (middle-aged)
+M_M_FBI | Fbi | Men (middle-aged)
+M_M_FEDCO | Fedco | Men (middle-aged)
+M_M_FIRECHIEF | Firechief | Men (middle-aged)
+M_M_GAYMID | Gaymid | Men (middle-aged)
+M_M_GBIK_LO_03 | Gbik Lo 03 | Men (middle-aged)
+M_M_GENBUM_01 | Genbum 01 | Men (middle-aged)
+M_M_GJAM_HI_01 | Gjam Hi 01 | Men (middle-aged)
+M_M_GJAM_HI_02 | Gjam Hi 02 | Men (middle-aged)
+M_M_GJAM_HI_03 | Gjam Hi 03 | Men (middle-aged)
+M_M_GRU2_HI_01 | Gru2 Hi 01 | Men (middle-aged)
+M_M_GRU2_HI_02 | Gru2 Hi 02 | Men (middle-aged)
+M_M_GRU2_LO_02 | Gru2 Lo 02 | Men (middle-aged)
+M_M_GTRI_HI_01 | Gtri Hi 01 | Men (middle-aged)
+M_M_GTRI_HI_02 | Gtri Hi 02 | Men (middle-aged)
+M_M_GUNNUT_01 | Gunnut 01 | Men (middle-aged)
+M_M_HELIPILOT_01 | Helipilot 01 | Men (middle-aged)
+M_M_HPORTER_01 | Hporter 01 | Men (middle-aged)
+M_M_KOREACOOK_01 | Koreacook 01 | Men (middle-aged)
+M_M_LAWYER_01 | Lawyer 01 | Men (middle-aged)
+M_M_LAWYER_02 | Lawyer 02 | Men (middle-aged)
+M_M_LOONYBLACK | Loonyblack | Men (middle-aged)
+M_M_LOONYWHITE | Loonywhite | Men (middle-aged)
+M_M_MIDTOWN_01 | Midtown 01 | Men (middle-aged)
+M_M_PBUSINESS_01 | Pbusiness 01 | Men (middle-aged)
+M_M_PEASTEURO_01 | Peasteuro 01 | Men (middle-aged)
+M_M_PHARBRON_01 | Pharbron 01 | Men (middle-aged)
+M_M_PILOT | Pilot | Men (middle-aged)
+M_M_PINDUS_01 | Pindus 01 | Men (middle-aged)
+M_M_PINDUS_02 | Pindus 02 | Men (middle-aged)
+M_M_PITALIAN_01 | Pitalian 01 | Men (middle-aged)
+M_M_PITALIAN_02 | Pitalian 02 | Men (middle-aged)
+M_M_PLATIN_01 | Platin 01 | Men (middle-aged)
+M_M_PLATIN_02 | Platin 02 | Men (middle-aged)
+M_M_PLATIN_03 | Platin 03 | Men (middle-aged)
+M_M_PMANHAT_01 | Pmanhat 01 | Men (middle-aged)
+M_M_PMANHAT_02 | Pmanhat 02 | Men (middle-aged)
+M_M_PORIENT_01 | Porient 01 | Men (middle-aged)
+M_M_POSTAL_01 | Postal 01 | Men (middle-aged)
+M_M_PRICH_01 | Prich 01 | Men (middle-aged)
+M_M_SAXPLAYER_01 | Saxplayer 01 | Men (middle-aged)
+M_M_SECURITYMAN | Securityman | Men (middle-aged)
+M_M_SELLER_01 | Seller 01 | Men (middle-aged)
+M_M_SHORTORDER | Shortorder | Men (middle-aged)
+M_M_STREETFOOD_01 | Streetfood 01 | Men (middle-aged)
+M_M_SWEEPER | Sweeper | Men (middle-aged)
+M_M_TAXIDRIVER | Taxidriver | Men (middle-aged)
+M_M_TELEPHONE | Telephone | Men (middle-aged)
+M_M_TENNIS | Tennis | Men (middle-aged)
+M_M_TRAIN_01 | Train 01 | Men (middle-aged)
+M_M_TRAMPBLACK | Trampblack | Men (middle-aged)
+M_M_TRUCKER_01 | Trucker 01 | Men (middle-aged)
+
+M_O_EASTEURO_01 | Easteuro 01 | Men (old)
+M_O_GRUS_HI_01 | Grus Hi 01 | Men (old)
+M_O_HASID_01 | Hasid 01 | Men (old)
+M_O_HOTEL_FOOT | Hotel Foot | Men (old)
+M_O_JANITOR | Janitor | Men (old)
+M_O_MOBSTER | Mobster | Men (old)
+M_O_MPMOBBOSS | Mpmobboss | Men (old)
+M_O_PEASTEURO_02 | Peasteuro 02 | Men (old)
+M_O_PHARBRON_01 | Pharbron 01 | Men (old)
+M_O_PJERSEY_01 | Pjersey 01 | Men (old)
+M_O_STREET_01 | Street 01 | Men (old)
+M_O_SUITED | Suited | Men (old)
+
+F_Y_BANK_01 | Bank 01 | Women (young)
+F_Y_BUSINESS_01 | Business 01 | Women (young)
+F_Y_CDRESS_01 | Cdress 01 | Women (young)
+F_Y_DOCTOR_01 | Doctor 01 | Women (young)
+F_Y_FF_BURGER_R | Ff Burger R | Women (young)
+F_Y_FF_CLUCK_R | Ff Cluck R | Women (young)
+F_Y_FF_RSCAFE | Ff Rscafe | Women (young)
+F_Y_FF_TWCAFE | Ff Twcafe | Women (young)
+F_Y_FF_WSPIZZA_R | Ff Wspizza R | Women (young)
+F_Y_GYMGAL_01 | Gymgal 01 | Women (young)
+F_Y_HOOKER_01 | Hooker 01 | Women (young)
+F_Y_HOOKER_03 | Hooker 03 | Women (young)
+F_Y_MULTIPLAYER | Multiplayer | Women (young)
+F_Y_NURSE | Nurse | Women (young)
+F_Y_PBRONX_01 | Pbronx 01 | Women (young)
+F_Y_PCOOL_01 | Pcool 01 | Women (young)
+F_Y_PCOOL_02 | Pcool 02 | Women (young)
+F_Y_PEASTEURO_01 | Peasteuro 01 | Women (young)
+F_Y_PHARBRON_01 | Pharbron 01 | Women (young)
+F_Y_PHARLEM_01 | Pharlem 01 | Women (young)
+F_Y_PJERSEY_02 | Pjersey 02 | Women (young)
+F_Y_PLATIN_01 | Platin 01 | Women (young)
+F_Y_PLATIN_02 | Platin 02 | Women (young)
+F_Y_PLATIN_03 | Platin 03 | Women (young)
+F_Y_PMANHAT_01 | Pmanhat 01 | Women (young)
+F_Y_PMANHAT_02 | Pmanhat 02 | Women (young)
+F_Y_PMANHAT_03 | Pmanhat 03 | Women (young)
+F_Y_PORIENT_01 | Porient 01 | Women (young)
+F_Y_PQUEENS_01 | Pqueens 01 | Women (young)
+F_Y_PRICH_01 | Prich 01 | Women (young)
+F_Y_PVILLBO_02 | Pvillbo 02 | Women (young)
+F_Y_SHOP_03 | Shop 03 | Women (young)
+F_Y_SHOP_04 | Shop 04 | Women (young)
+F_Y_SHOPPER_05 | Shopper 05 | Women (young)
+F_Y_SOCIALITE | Socialite | Women (young)
+F_Y_STREET_02 | Street 02 | Women (young)
+F_Y_STREET_05 | Street 05 | Women (young)
+F_Y_STREET_09 | Street 09 | Women (young)
+F_Y_STREET_12 | Street 12 | Women (young)
+F_Y_STREET_30 | Street 30 | Women (young)
+F_Y_STREET_34 | Street 34 | Women (young)
+F_Y_STRIPPERC01 | Stripperc01 | Women (young)
+F_Y_STRIPPERC02 | Stripperc02 | Women (young)
+F_Y_TOURIST_01 | Tourist 01 | Women (young)
+F_Y_VILLBO_01 | Villbo 01 | Women (young)
+F_Y_WAITRESS_01 | Waitress 01 | Women (young)
+
+F_M_BUSINESS_01 | Business 01 | Women (middle-aged)
+F_M_BUSINESS_02 | Business 02 | Women (middle-aged)
+F_M_CHINATOWN | Chinatown | Women (middle-aged)
+F_M_PBUSINESS | Pbusiness | Women (middle-aged)
+F_M_PEASTEURO_01 | Peasteuro 01 | Women (middle-aged)
+F_M_PHARBRON_01 | Pharbron 01 | Women (middle-aged)
+F_M_PJERSEY_01 | Pjersey 01 | Women (middle-aged)
+F_M_PJERSEY_02 | Pjersey 02 | Women (middle-aged)
+F_M_PLATIN_01 | Platin 01 | Women (middle-aged)
+F_M_PLATIN_02 | Platin 02 | Women (middle-aged)
+F_M_PMANHAT_01 | Pmanhat 01 | Women (middle-aged)
+F_M_PMANHAT_02 | Pmanhat 02 | Women (middle-aged)
+F_M_PORIENT_01 | Porient 01 | Women (middle-aged)
+F_M_PRICH_01 | Prich 01 | Women (middle-aged)
+
+F_O_BINCO | Binco | Women (old)
+F_O_MAID_01 | Maid 01 | Women (old)
+F_O_PEASTEURO_01 | Peasteuro 01 | Women (old)
+F_O_PEASTEURO_02 | Peasteuro 02 | Women (old)
+F_O_PHARBRON_01 | Pharbron 01 | Women (old)
+F_O_PJERSEY_01 | Pjersey 01 | Women (old)
+F_O_PORIENT_01 | Porient 01 | Women (old)
+F_O_RICH_01 | Rich 01 | Women (old)

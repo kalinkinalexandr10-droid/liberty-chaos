@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Админка — Liberty Chaos Pack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500;600&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/">Liberty <span>Chaos</span></a>
+      <nav class="nav">
+        <a href="/">Сайт</a>
+        <a href="/admin" aria-current="page">Админка</a>
+        <a href="#" id="logout" hidden>Выйти</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap section">
+    <h1 style="font-size:40px">Админка</h1>
+
+    <form class="panel" id="login" hidden style="max-width:420px">
+      <label>Пароль
+        <input type="password" id="password" autocomplete="current-password" required>
+      </label>
+      <button class="btn primary" type="submit">Войти</button>
+      <p class="msg" id="login-msg" role="status"></p>
+    </form>
+
+    <div id="dash" hidden style="display:grid;gap:18px">
+      <div class="panel">
+        <h2>Скачивания</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Мод</th><th>Версий</th><th>Последняя</th><th>Скачиваний</th></tr></thead>
+            <tbody id="stats"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <form class="panel" id="upload">
+        <h2>Новая версия</h2>
+        <div class="form-row">
+          <label>Мод
+            <select id="up-mod" style="font:15px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px"></select>
+          </label>
+          <label>Версия
+            <input id="up-version" placeholder="1.1.0" pattern="\d+\.\d+(\.\d+)?" required>
+          </label>
+        </div>
+        <label>Архив (.zip, внутри папка scripts)
+          <input type="file" id="up-file" accept=".zip" required>
+        </label>
+        <label>Что нового
+          <textarea id="up-changelog" placeholder="Исправлен вылет при спавне фургона…"></textarea>
+        </label>
+        <button class="btn primary" type="submit" id="up-btn">Загрузить версию</button>
+        <p class="msg" id="up-msg" role="status"></p>
+      </form>
+
+      <div class="panel">
+        <h2>Моды и версии</h2>
+        <div id="mods-admin" style="display:grid;gap:18px"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/admin.js"></script>
+</body>
+</html>

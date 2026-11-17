@@ -1,0 +1,131 @@
+# Format: MODEL | Name in menu | Category
+# Photo: images\MODEL.png (e.g. images\INFERNUS.png)
+# All base GTA IV vehicles from common\data\vehicles.ide (trains excluded)
+
+ADMIRAL | Admiral | Cars
+AIRTUG | Airtug | Cars
+AMBULANCE | Ambulance | Cars
+BANSHEE | Banshee | Cars
+BENSON | Benson | Cars
+BIFF | Biff | Cars
+BLISTA | Blista Compact | Cars
+BOBCAT | Bobcat | Cars
+BOXVILLE | Boxville | Cars
+BUCCANEER | Buccaneer | Cars
+BURRITO | Burrito | Cars
+BURRITO2 | Burrito (plain) | Cars
+BUS | Bus | Cars
+CABBY | Cabby | Cars
+CAVALCADE | Cavalcade | Cars
+FXT | Cavalcade FXT | Cars
+CHAVOS | Chavos | Cars
+COGNOSCENTI | Cognoscenti | Cars
+COMET | Comet | Cars
+COQUETTE | Coquette | Cars
+DF8 | DF8-90 | Cars
+DILETTANTE | Dilettante | Cars
+DUKES | Dukes | Cars
+E109 | E109 (cut) | Cars
+EMPEROR | Emperor | Cars
+EMPEROR2 | Emperor (beater) | Cars
+ESPERANTO | Esperanto | Cars
+FACTION | Faction | Cars
+FELTZER | Feltzer | Cars
+FEROCI | Feroci | Cars
+FEROCI2 | Feroci (FlyUS) | Cars
+FBI | FIB Buffalo | Cars
+FIRETRUK | Fire Truck | Cars
+FLATBED | Flatbed | Cars
+FORKLIFT | Forklift | Cars
+FORTUNE | Fortune | Cars
+FUTO | Futo | Cars
+HABANERO | Habanero | Cars
+HAKUMAI | Hakumai | Cars
+HUNTLEY | Huntley Sport | Cars
+INFERNUS | Infernus | Cars
+INGOT | Ingot | Cars
+INTRUDER | Intruder | Cars
+LANDSTALKER | Landstalker | Cars
+LOKUS | Lokus | Cars
+MANANA | Manana | Cars
+MARBELLA | Marbella (cut) | Cars
+MERIT | Merit | Cars
+MINIVAN | Minivan | Cars
+MOONBEAM | Moonbeam | Cars
+MRTASTY | Mr. Tasty | Cars
+MULE | Mule | Cars
+NOOSE | NOOSE Cruiser | Cars
+POLPATRIOT | NOOSE Patriot | Cars
+NSTOCKADE | NOOSE Stockade | Cars
+ORACLE | Oracle | Cars
+PACKER | Packer | Cars
+PATRIOT | Patriot | Cars
+PERENNIAL | Perennial | Cars
+PERENNIAL2 | Perennial (FlyUS) | Cars
+PEYOTE | Peyote | Cars
+PHANTOM | Phantom | Cars
+PINNACLE | Pinnacle | Cars
+PMP600 | PMP 600 | Cars
+POLICE | Police Cruiser | Cars
+POLICE2 | Police Cruiser (2) | Cars
+PSTOCKADE | Police Stockade | Cars
+PONY | Pony | Cars
+PREMIER | Premier | Cars
+PRES | Presidente | Cars
+PRIMO | Primo | Cars
+RANCHER | Rancher | Cars
+REBLA | Rebla | Cars
+RIPLEY | Ripley | Cars
+ROM | Romero (2) | Cars
+ROMERO | Romero Hearse | Cars
+RUINER | Ruiner | Cars
+SABRE | Sabre | Cars
+SABRE2 | Sabre (2) | Cars
+SABREGT | Sabre GT | Cars
+SCHAFTER | Schafter | Cars
+SENTINEL | Sentinel | Cars
+SOLAIR | Solair | Cars
+SPEEDO | Speedo | Cars
+STALION | Stallion | Cars
+STEED | Steed | Cars
+STOCKADE | Stockade | Cars
+STRATUM | Stratum | Cars
+STRETCH | Stretch | Cars
+SULTAN | Sultan | Cars
+SULTANRS | Sultan RS | Cars
+SUPERGT | Super GT | Cars
+TAXI | Taxi | Cars
+TAXI2 | Taxi (2) | Cars
+TRASH | Trashmaster | Cars
+TURISMO | Turismo | Cars
+URANUS | Uranus | Cars
+VIGERO | Vigero | Cars
+VIGERO2 | Vigero (rusty) | Cars
+VINCENT | Vincent | Cars
+VIRGO | Virgo | Cars
+VOODOO | Voodoo | Cars
+WASHINGTON | Washington | Cars
+WILLARD | Willard | Cars
+YANKEE | Yankee | Cars
+
+FAGGIO | Faggio | Bikes
+BOBBER | Freeway | Bikes
+HELLFURY | Hellfury | Bikes
+NRG900 | NRG-900 | Bikes
+PCJ | PCJ-600 | Bikes
+SANCHEZ | Sanchez | Bikes
+ZOMBIEB | Zombie | Bikes
+
+ANNIHILATOR | Annihilator | Helicopters
+MAVERICK | Maverick | Helicopters
+POLMAV | Police Maverick | Helicopters
+TOURMAV | Tour Maverick | Helicopters
+
+DINGHY | Dinghy | Boats
+JETMAX | Jetmax | Boats
+MARQUIS | Marquis | Boats
+PREDATOR | Predator | Boats
+REEFER | Reefer | Boats
+SQUALO | Squalo | Boats
+TROPIC | Tropic | Boats
+TUGA | Tug | Boats
