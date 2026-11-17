@@ -57,8 +57,11 @@ app.get('/api/download/:id', (req, res) => {
   if (!v) return res.status(404).send('У этого мода пока нет загруженных версий');
   const file = path.join(FILES_DIR, v.file);
   if (!file.startsWith(FILES_DIR) || !fs.existsSync(file)) return res.status(410).send('Файл версии не найден на сервере');
-  v.downloads = (v.downloads || 0) + 1;
-  store.save();
+  // считаем только настоящие скачивания: HEAD-запросы проверялок ссылок файл не получают
+  if (req.method === 'GET') {
+    v.downloads = (v.downloads || 0) + 1;
+    store.save();
+  }
   res.download(file, `LibertyChaos-${mod.id}-${v.version}.zip`);
 });
 
