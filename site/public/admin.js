@@ -44,6 +44,9 @@
 
     const list = fbFilter === 'unread' ? data.messages.filter((m) => !m.read) : data.messages;
     box.textContent = '';
+    if (data.storage && data.storage.indexOf('Postgres') < 0) {
+      box.appendChild(el('p', { class: 'note', text: 'Сообщения хранятся в файле на сервере. На Render он стирается при каждом перезапуске — подключи базу (DATABASE_URL), чтобы они не пропадали.' }));
+    }
     if (!list.length) {
       box.appendChild(el('p', { class: 'empty', text: fbFilter === 'unread' ? 'Новых сообщений нет.' : 'Сообщений пока нет.' }));
       return;

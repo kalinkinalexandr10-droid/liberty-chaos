@@ -68,29 +68,44 @@ app.get('/api/download/:id', (req, res) => {
 });
 
 // ---------- обратная связь ----------
-app.post('/api/feedback', (req, res) => {
+// ошибки хранилища (например, база не отвечает) не роняют сервер, а дают понятный ответ
+const dbFail = (res, e) => {
+  console.error('Обратная связь:', e.message);
+  res.status(503).json({ error: 'Хранилище сообщений сейчас недоступно. Попробуй чуть позже.' });
+};
+
+app.post('/api/feedback', async (req, res) => {
   const b = req.body || {};
   // поле-ловушка: человек его не видит, а спам-боты заполняют — делаем вид, что всё хорошо
   if (b.website) return res.json({ ok: true });
   if (String(b.message || '').trim().length < 5) return res.status(400).json({ error: 'Напиши сообщение хотя бы из пары слов' });
   if (!feedback.sendAllowed(req.ip || 'local')) return res.status(429).json({ error: 'Слишком много сообщений подряд. Попробуй через 10 минут.' });
-  const r = feedback.add(b);
-  if (r.error) return res.status(400).json({ error: r.error });
-  res.json({ ok: true });
+  try {
+    const r = await feedback.add(b);
+    if (r.error) return res.status(400).json({ error: r.error });
+    res.json({ ok: true });
+  } catch (e) { dbFail(res, e); }
 });
 
-app.get('/api/admin/feedback', auth.requireAdmin, (req, res) => {
-  res.json({ unread: feedback.unreadCount(), messages: feedback.all() });
+app.get('/api/admin/feedback', auth.requireAdmin, async (req, res) => {
+  try {
+    const messages = await feedback.all();
+    res.json({ unread: messages.filter((m) => !m.read).length, messages, storage: feedback.storageName });
+  } catch (e) { dbFail(res, e); }
 });
 
-app.patch('/api/admin/feedback/:id', auth.requireAdmin, (req, res) => {
-  if (!feedback.setRead(req.params.id, req.body && req.body.read)) return res.status(404).json({ error: 'Сообщение не найдено' });
-  res.json({ ok: true });
+app.patch('/api/admin/feedback/:id', auth.requireAdmin, async (req, res) => {
+  try {
+    if (!(await feedback.setRead(req.params.id, req.body && req.body.read))) return res.status(404).json({ error: 'Сообщение не найдено' });
+    res.json({ ok: true });
+  } catch (e) { dbFail(res, e); }
 });
 
-app.delete('/api/admin/feedback/:id', auth.requireAdmin, (req, res) => {
-  if (!feedback.remove(req.params.id)) return res.status(404).json({ error: 'Сообщение не найдено' });
-  res.json({ ok: true });
+app.delete('/api/admin/feedback/:id', auth.requireAdmin, async (req, res) => {
+  try {
+    if (!(await feedback.remove(req.params.id))) return res.status(404).json({ error: 'Сообщение не найдено' });
+    res.json({ ok: true });
+  } catch (e) { dbFail(res, e); }
 });
 
 // ---------- админка ----------
@@ -231,6 +246,11 @@ let newPass = null;
 if (process.env.ADMIN_PASSWORD) auth.setPassword(process.env.ADMIN_PASSWORD);
 else newPass = auth.ensurePassword();
 const seeded = syncReleases();
+
+// таблица сообщений создаётся сама; если база не отвечает — сайт всё равно работает, просто без сообщений
+feedback.init()
+  .then(() => console.log('Обратная связь хранится: ' + feedback.storageName))
+  .catch((e) => console.error('Обратная связь: не удалось подготовить хранилище — ' + e.message));
 
 app.listen(PORT, () => {
   console.log(`Liberty Chaos site: http://localhost:${PORT}`);

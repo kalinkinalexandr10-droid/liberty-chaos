@@ -13,3 +13,5 @@ services:
         value: production
       - key: ADMIN_PASSWORD
         sync: false   # пароль админки вводится вручную в панели Render, в репозиторий не попадает
+      - key: DATABASE_URL
+        sync: false   # строка подключения к Postgres (Neon) для обратной связи — тоже только в панели Render
