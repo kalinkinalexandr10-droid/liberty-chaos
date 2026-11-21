@@ -15,5 +15,9 @@
     "express": "4.22.3",
     "multer": "2.5.0",
     "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "@neon/config": "1.14.6",
+    "@neon/env": "2.1.9"
   }
 }

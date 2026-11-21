@@ -5,3 +5,9 @@ site/node_modules/
 site/data/
 site/files/
 site/.claude/
+
+# секреты (строка подключения к базе и т.п.) — никогда в git
+.env
+.env.*
+**/.env
+**/.env.*
