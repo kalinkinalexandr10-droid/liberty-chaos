@@ -1,4 +1,4 @@
-// CarSpawner — меню спавна всего транспорта GTA IV с фото-превью.
+﻿// CarSpawner — меню спавна всего транспорта GTA IV с фото-превью.
 // Для ScriptHookDotNet (GTA IV). Кладётся в папку <GTA IV>\scripts\
 //
 // Клавиши (по умолчанию, меняются в Mod menu settings — F9):
@@ -55,6 +55,14 @@ public class CarSpawner : Script
         public int Int(string k, int def, int min, int max) { int v; if (!int.TryParse(Get(k, ""), out v)) v = def; return Math.Max(min, Math.Min(max, v)); }
         public Keys Key(string k, Keys def) { try { return (Keys)Enum.Parse(typeof(Keys), Get(k, def.ToString()), true); } catch (Exception) { return def; } }
         public bool Ru { get { return Get("Language", "EN").ToUpper() == "RU"; } }
+        // основной цвет меню (MenuColor, меняется в F9). Тот же список — в ModSettings.
+        static readonly string[] ColorIds = { "Orange", "Red", "Pink", "Purple", "Blue", "Cyan", "Green", "Yellow", "White" };
+        static readonly Color[] ColorVals = {
+            Color.FromArgb(255, 140, 0), Color.FromArgb(220, 40, 40), Color.FromArgb(255, 80, 160), Color.FromArgb(150, 80, 230),
+            Color.FromArgb(40, 120, 255), Color.FromArgb(0, 200, 220), Color.FromArgb(60, 200, 80), Color.FromArgb(255, 210, 0), Color.FromArgb(230, 230, 230) };
+        public Color Accent { get { string id = Get("MenuColor", "Orange"); for (int i = 0; i < ColorIds.Length; i++) if (string.Compare(ColorIds[i], id, true) == 0) return ColorVals[i]; return ColorVals[0]; } }
+        // текст на выделенной строке: чёрный на светлом цвете, белый на тёмном
+        public Color SelText { get { Color c = Accent; return c.R * 0.299f + c.G * 0.587f + c.B * 0.114f > 140f ? Color.Black : Color.White; } }
     }
     readonly Cfg cfg = new Cfg();
     string T(string en, string ru) { return cfg.Ru ? ru : en; }
@@ -347,15 +355,15 @@ public class CarSpawner : Script
         float x = 0.03f, y = 0.17f, w = 0.25f, rowH = 0.032f;
 
         g.DrawRectangle(new RectangleF(x, y - 0.08f, w, 0.08f + rowH * VisibleRows + 0.07f), Color.FromArgb(190, 0, 0, 0));
-        g.DrawText(T("VEHICLES", "ТРАНСПОРТ"), x + 0.01f, y - 0.077f, Color.Orange, fTitle);
+        g.DrawText(T("VEHICLES", "ТРАНСПОРТ"), x + 0.01f, y - 0.077f, cfg.Accent, fTitle);
         g.DrawText("<  " + CatName(cat.Name).ToUpper() + "  (" + (catIndex + 1) + "/" + categories.Count + ")  >", x + 0.01f, y - 0.037f, Color.White, fRow);
 
         for (int i = 0; i < VisibleRows && scroll + i < items.Count; i++)
         {
             int idx = scroll + i;
             float ry = y + i * rowH;
-            if (idx == selected) g.DrawRectangle(new RectangleF(x, ry, w, rowH), Color.FromArgb(200, 255, 140, 0));
-            g.DrawText(EntryName(cat, items[idx]), x + 0.01f, ry + 0.004f, idx == selected ? Color.Black : Color.White, fRow);
+            if (idx == selected) g.DrawRectangle(new RectangleF(x, ry, w, rowH), Color.FromArgb(200, cfg.Accent));
+            g.DrawText(EntryName(cat, items[idx]), x + 0.01f, ry + 0.004f, idx == selected ? cfg.SelText : Color.White, fRow);
         }
 
         float by = y + rowH * VisibleRows + 0.006f;
@@ -369,6 +377,6 @@ public class CarSpawner : Script
         RectangleF inner = new RectangleF(px + 0.005f, py + 0.005f, pw - 0.01f, ph - 0.01f);
         if (tex != null) g.DrawSprite(tex, inner);
         else g.DrawText(cur.IsRandom ? T("?  RANDOM  ?", "?  СЛУЧАЙНО  ?") : T("No photo", "Нет фото"), inner,
-            TextAlignment.Center | TextAlignment.VerticalCenter, cur.IsRandom ? Color.Orange : Color.Gray, fTitle);
+            TextAlignment.Center | TextAlignment.VerticalCenter, cur.IsRandom ? cfg.Accent : Color.Gray, fTitle);
     }
 }

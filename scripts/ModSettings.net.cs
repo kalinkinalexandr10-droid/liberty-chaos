@@ -1,4 +1,4 @@
-// ModSettings — окно «Mod menu settings» для всех модов сборки.
+﻿// ModSettings — окно «Mod menu settings» для всех модов сборки.
 // Для ScriptHookDotNet (GTA IV). Кладётся в папку <GTA IV>\scripts\
 //
 // Меню паузы GTA IV рисует сам движок, и скрипты не могут добавить туда свой пункт,
@@ -35,8 +35,20 @@ public class ModSettings : Script
     const int DefVehicleLimit = 20, MinVehicleLimit = 1, MaxVehicleLimit = 100;
     const int DefNpcLimit = 150, MinNpcLimit = 5, MaxNpcLimit = 300;
 
-    // строки окна: 0 — язык, 1 — лимит машин, 2 — лимит NPC, 3.. — клавиши, последняя — сброс
-    const int RowLang = 0, RowVeh = 1, RowNpc = 2, RowKeys = 3;
+    // основной цвет всех меню (MenuColor в ini). Тот же список есть в общем блоке каждого мода.
+    static readonly string[] ColorIds = { "Orange", "Red", "Pink", "Purple", "Blue", "Cyan", "Green", "Yellow", "White" };
+    static readonly string[] ColorRu = { "Оранжевый", "Красный", "Розовый", "Фиолетовый", "Синий", "Бирюзовый", "Зелёный", "Жёлтый", "Белый" };
+    static readonly Color[] ColorVals = {
+        Color.FromArgb(255, 140, 0), Color.FromArgb(220, 40, 40), Color.FromArgb(255, 80, 160), Color.FromArgb(150, 80, 230),
+        Color.FromArgb(40, 120, 255), Color.FromArgb(0, 200, 220), Color.FromArgb(60, 200, 80), Color.FromArgb(255, 210, 0), Color.FromArgb(230, 230, 230) };
+    int colorIdx = 0;
+    Color Accent { get { return ColorVals[colorIdx]; } }
+    // текст на выделенной строке: чёрный на светлом цвете, белый на тёмном
+    static Color TextOn(Color c) { return c.R * 0.299f + c.G * 0.587f + c.B * 0.114f > 140f ? Color.Black : Color.White; }
+    static int ColorIndex(string id) { for (int i = 0; i < ColorIds.Length; i++) if (string.Compare(ColorIds[i], id, true) == 0) return i; return 0; }
+
+    // строки окна: 0 — язык, 1 — цвет, 2 — лимит машин, 3 — лимит NPC, 4.. — клавиши, последняя — сброс
+    const int RowLang = 0, RowColor = 1, RowVeh = 2, RowNpc = 3, RowKeys = 4;
     int RowReset { get { return RowKeys + actions.Count; } }
     int RowCount { get { return RowReset + 1; } }
 
@@ -54,7 +66,7 @@ public class ModSettings : Script
 
     // клавиши, которые заняты навигацией меню и полётом — на них действия не назначаем
     static readonly Keys[] Reserved = {
-        Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.Enter, Keys.Back, Keys.Escape,
+        Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.Enter, Keys.Back, Keys.Escape, Keys.Home, Keys.End,
         Keys.PageUp, Keys.PageDown, Keys.Add, Keys.Subtract, Keys.Oemplus, Keys.OemMinus,
         Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space,
         Keys.ShiftKey, Keys.LShiftKey, Keys.RShiftKey, Keys.ControlKey, Keys.LControlKey, Keys.RControlKey,
@@ -78,6 +90,7 @@ public class ModSettings : Script
         AddAction("Key_Fly", "Fly on / off", "Полёт вкл / выкл", Keys.F8);
         AddAction("Key_FlyDrop", "Fly: drop", "Полёт: сбросить", Keys.X);
         AddAction("Key_FlyDropType", "Fly: what to drop", "Полёт: что сбрасывать", Keys.Q);
+        AddAction("Key_Extras", "Extras menu", "Меню возможностей", Keys.F10);
 
         Load();
         if (!File.Exists(iniPath)) Save(); // первый запуск — создаём файл со значениями по умолчанию
@@ -115,6 +128,7 @@ public class ModSettings : Script
                 string k = l.Substring(0, i).Trim(), v = l.Substring(i + 1).Trim();
                 int n;
                 if (k == "Language") language = v.ToUpper() == "RU" ? "RU" : "EN";
+                else if (k == "MenuColor") colorIdx = ColorIndex(v);
                 else if (k == "VehicleLimit" && int.TryParse(v, out n)) vehicleLimit = Clamp(n, MinVehicleLimit, MaxVehicleLimit);
                 else if (k == "NpcLimit" && int.TryParse(v, out n)) npcLimit = Clamp(n, MinNpcLimit, MaxNpcLimit);
                 else
@@ -136,6 +150,7 @@ public class ModSettings : Script
             sb.AppendLine("# Language: EN или RU. Клавиши — имена из System.Windows.Forms.Keys (F5, R, Delete, NumPad1...).");
             sb.AppendLine("[General]");
             sb.AppendLine("Language=" + language);
+            sb.AppendLine("MenuColor=" + ColorIds[colorIdx]);
             sb.AppendLine("VehicleLimit=" + vehicleLimit);
             sb.AppendLine("NpcLimit=" + npcLimit);
             sb.AppendLine("[Keys]");
@@ -194,6 +209,7 @@ public class ModSettings : Script
     void Change(int dir, bool big)
     {
         if (selected == RowLang) language = Ru ? "EN" : "RU";
+        else if (selected == RowColor) colorIdx = (colorIdx + dir + ColorIds.Length) % ColorIds.Length;
         else if (selected == RowVeh) vehicleLimit = Clamp(vehicleLimit + dir * (big ? 10 : 1), MinVehicleLimit, MaxVehicleLimit);
         else if (selected == RowNpc) npcLimit = Clamp(npcLimit + dir * (big ? 50 : 5), MinNpcLimit, MaxNpcLimit);
         else return;
@@ -203,6 +219,7 @@ public class ModSettings : Script
     void ResetDefaults()
     {
         language = "EN";
+        colorIdx = 0;
         vehicleLimit = DefVehicleLimit;
         npcLimit = DefNpcLimit;
         foreach (KeyAction a in actions) a.Current = a.Default;
@@ -225,11 +242,11 @@ public class ModSettings : Script
         if (!open) return;
 
         float w = 0.40f, x = 0.5f - w / 2f, y = 0.16f, rowH = 0.034f;
-        float h = 0.075f + rowH * VisibleRows + 0.075f;
+        float h = 0.075f + rowH * VisibleRows + 0.110f;
 
         g.DrawRectangle(new RectangleF(x, y - 0.075f, w, h), Color.FromArgb(215, 0, 0, 0));
-        g.DrawRectangle(new RectangleF(x, y - 0.075f, w, 0.004f), Color.Orange);
-        g.DrawText("MOD MENU SETTINGS", x + 0.012f, y - 0.066f, Color.Orange, fTitle);
+        g.DrawRectangle(new RectangleF(x, y - 0.075f, w, 0.004f), Accent);
+        g.DrawText("MOD MENU SETTINGS", x + 0.012f, y - 0.066f, Accent, fTitle);
         g.DrawText(T("saved to scripts\\ModMenu.ini", "сохраняется в scripts\\ModMenu.ini"), new RectangleF(x, y - 0.062f, w - 0.012f, 0.03f), TextAlignment.Right, Color.Gray, fSmall);
 
         for (int i = 0; i < VisibleRows && scroll + i < RowCount; i++)
@@ -237,11 +254,18 @@ public class ModSettings : Script
             int idx = scroll + i;
             float ry = y + i * rowH;
             bool sel = idx == selected;
-            if (sel) g.DrawRectangle(new RectangleF(x, ry, w, rowH), Color.FromArgb(200, 255, 140, 0));
-            Color c = sel ? Color.Black : Color.White;
+            if (sel) g.DrawRectangle(new RectangleF(x, ry, w, rowH), Color.FromArgb(200, Accent));
+            Color c = sel ? TextOn(Accent) : Color.White;
 
             string label, value;
             if (idx == RowLang) { label = T("Language", "Язык"); value = Ru ? "<  Русский  >" : "<  English  >"; }
+            else if (idx == RowColor)
+            {
+                label = T("Menu color", "Цвет меню");
+                value = "<  " + (Ru ? ColorRu[colorIdx] : ColorIds[colorIdx]) + "  >";
+                // образец цвета слева от названия
+                g.DrawRectangle(new RectangleF(x + w - 0.012f - 0.215f, ry + 0.008f, 0.018f, rowH - 0.016f), Accent);
+            }
             else if (idx == RowVeh) { label = T("Vehicle limit", "Лимит машин"); value = "<  " + vehicleLimit + "  >"; }
             else if (idx == RowNpc) { label = T("NPC limit", "Лимит NPC"); value = "<  " + npcLimit + "  >"; }
             else if (idx == RowReset) { label = T("Reset everything to defaults", "Сбросить всё по умолчанию"); value = "Enter"; }
@@ -259,9 +283,10 @@ public class ModSettings : Script
         }
 
         float by = y + rowH * VisibleRows + 0.008f;
-        g.DrawText(T("Up/Down - select   Left/Right - change   Enter - set key   Backspace - close",
-                     "Вверх/вниз — выбор   Влево/вправо — изменить   Enter — назначить   Backspace — закрыть"), x + 0.012f, by, Color.LightGray, fSmall);
-        g.DrawText(T("Limits: how many spawned vehicles / NPC stay in the world; the oldest are removed.",
-                     "Лимиты: сколько заспавненных машин / NPC держится в мире; самые старые удаляются."), x + 0.012f, by + 0.027f, Color.Gray, fSmall);
+        // подсказки по две строки: одной строкой они вылезали за правый край окна
+        g.DrawText(T("Up/Down - select   Left/Right - change", "Вверх/вниз — выбор   Влево/вправо — изменить"), x + 0.012f, by, Color.LightGray, fSmall);
+        g.DrawText(T("Enter - set key   Backspace - close", "Enter — назначить   Backspace — закрыть"), x + 0.012f, by + 0.024f, Color.LightGray, fSmall);
+        g.DrawText(T("Limits: how many spawned vehicles / NPC stay in the world;", "Лимиты: сколько заспавненных машин / NPC держится в мире;"), x + 0.012f, by + 0.052f, Color.Gray, fSmall);
+        g.DrawText(T("the oldest are removed.", "самые старые удаляются."), x + 0.012f, by + 0.076f, Color.Gray, fSmall);
     }
 }

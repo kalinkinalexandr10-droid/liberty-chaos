@@ -1,4 +1,4 @@
-// FlyMode — полёт для GTA IV и сброс всякого с высоты.
+﻿// FlyMode — полёт для GTA IV и сброс всякого с высоты.
 // Для ScriptHookDotNet (GTA IV). Кладётся в папку <GTA IV>\scripts\
 //
 // Управление:
@@ -55,6 +55,14 @@ public class FlyMode : Script
         public int Int(string k, int def, int min, int max) { int v; if (!int.TryParse(Get(k, ""), out v)) v = def; return Math.Max(min, Math.Min(max, v)); }
         public Keys Key(string k, Keys def) { try { return (Keys)Enum.Parse(typeof(Keys), Get(k, def.ToString()), true); } catch (Exception) { return def; } }
         public bool Ru { get { return Get("Language", "EN").ToUpper() == "RU"; } }
+        // основной цвет меню (MenuColor, меняется в F9). Тот же список — в ModSettings.
+        static readonly string[] ColorIds = { "Orange", "Red", "Pink", "Purple", "Blue", "Cyan", "Green", "Yellow", "White" };
+        static readonly Color[] ColorVals = {
+            Color.FromArgb(255, 140, 0), Color.FromArgb(220, 40, 40), Color.FromArgb(255, 80, 160), Color.FromArgb(150, 80, 230),
+            Color.FromArgb(40, 120, 255), Color.FromArgb(0, 200, 220), Color.FromArgb(60, 200, 80), Color.FromArgb(255, 210, 0), Color.FromArgb(230, 230, 230) };
+        public Color Accent { get { string id = Get("MenuColor", "Orange"); for (int i = 0; i < ColorIds.Length; i++) if (string.Compare(ColorIds[i], id, true) == 0) return ColorVals[i]; return ColorVals[0]; } }
+        // текст на выделенной строке: чёрный на светлом цвете, белый на тёмном
+        public Color SelText { get { Color c = Accent; return c.R * 0.299f + c.G * 0.587f + c.B * 0.114f > 140f ? Color.Black : Color.White; } }
     }
     readonly Cfg cfg = new Cfg();
     string T(string en, string ru) { return cfg.Ru ? ru : en; }
@@ -111,7 +119,30 @@ public class FlyMode : Script
     static readonly string[] DropCars = { "INFERNUS", "TURISMO", "BUS", "TAXI", "POLICE", "AMBULANCE", "FIRETRUK", "STRETCH", "MRTASTY", "BENSON", "PATRIOT", "BANSHEE" };
     static readonly string[] DropPeds = { "M_Y_COP", "M_Y_SWAT", "M_Y_GANGELS_01", "M_M_FATCOP_01", "F_Y_TOURIST_01", "M_Y_TOURIST_02", "M_M_BUSINESS_02", "IG_ROMAN", "IG_BRUCIE", "M_M_TRAMP_01" };
 
-    class Bomb { public GTA.Object Obj; public Vector3 Pos; public Vector3 Vel; public bool Fire; public int Born; }
+    class Bomb { public GTA.Object Obj; public Vector3 Pos; public Vector3 Vel; public bool Fire; public int Born; public float Ground; }
+
+    // Попала ли бомба в машину. Раньше проверялась только земля: бомба без коллизии пролетала
+    // сквозь крышу, а изнутри кузова «земля» не находилась — бомба проваливалась и пропадала без взрыва.
+    static bool HitsVehicle(Vector3 p)
+    {
+        Vehicle[] cars;
+        try { cars = World.GetVehicles(p, 8f); } catch (Exception) { return false; }
+        if (cars == null) return false;
+        foreach (Vehicle v in cars)
+        {
+            try
+            {
+                if (v == null || !v.Exists()) continue;
+                Vector3 size = v.Model.GetDimensions();
+                Vector3 local = v.GetOffset(p);          // точка бомбы в координатах машины
+                if (Math.Abs(local.X) <= size.X * 0.5f + 0.2f &&
+                    Math.Abs(local.Y) <= size.Y * 0.5f + 0.2f &&
+                    Math.Abs(local.Z) <= size.Z * 0.5f + 0.2f) return true;
+            }
+            catch (Exception) { }
+        }
+        return false;
+    }
 
     bool flying = false;
     bool landingProtect = false;
@@ -341,8 +372,10 @@ public class FlyMode : Script
             Vector3 next = b.Pos + b.Vel * dt;
             float gz = 0f;
             try { gz = World.GetGroundZ(new Vector3(next.X, next.Y, b.Pos.Z + 0.5f)); } catch (Exception) { }
-            bool hit = gz != 0f && next.Z <= gz + 0.15f;
-            if (hit || now - b.Born > 20000)
+            if (gz != 0f) b.Ground = gz; else gz = b.Ground;   // земля не нашлась — берём последнюю известную
+            bool hitCar = HitsVehicle(next);
+            bool hit = !hitCar && gz != 0f && next.Z <= gz + 0.15f;
+            if (hitCar || hit || now - b.Born > 20000)
             {
                 Vector3 at = hit ? new Vector3(next.X, next.Y, gz + 0.3f) : next;
                 try { World.AddExplosion(at, b.Fire ? ExplosionType.Molotov : ExplosionType.Rocket, BombPower); } catch (Exception) { }
@@ -373,6 +406,6 @@ public class FlyMode : Script
         catch (Exception) { }
         g.DrawText(T("FLYING   alt ", "ПОЛЁТ   высота ") + alt + T(" m   ", " м   ") + (int)(vel.Length() * 3.6f) + T(" km/h   |   DROP [", " км/ч   |   СБРОС [") + DropTypeKey + "]: " + DropName(dropType)
             + "   " + DropKey + T(" - drop   ", " — сбросить   ") + ToggleKey + T(" - land", " — приземлиться"),
-            new RectangleF(20f * s, res.Height - 60f * s, res.Width - 40f * s, 30f * s), TextAlignment.Left, Color.Orange, hudFont);
+            new RectangleF(20f * s, res.Height - 60f * s, res.Width - 40f * s, 30f * s), TextAlignment.Left, cfg.Accent, hudFont);
     }
 }

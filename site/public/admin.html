@@ -33,6 +33,18 @@
     </form>
 
     <div id="dash" hidden style="display:grid;gap:18px">
+      <div class="panel" id="feedback">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <h2>Обратная связь <span class="badge" id="fb-unread" hidden></span></h2>
+          <div class="filters" style="margin-left:auto">
+            <button class="btn" type="button" data-filter="unread" aria-pressed="true">Новые</button>
+            <button class="btn" type="button" data-filter="all" aria-pressed="false">Все</button>
+            <button class="btn" type="button" id="fb-refresh">Обновить</button>
+          </div>
+        </div>
+        <div class="fb-list" id="fb-list"></div>
+      </div>
+
       <div class="panel">
         <h2>Скачивания</h2>
         <div class="table-wrap">

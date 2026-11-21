@@ -9,8 +9,8 @@ const DB_FILE = path.join(DATA_DIR, 'db.json');
 // Каталог по умолчанию — моды сборки. Описания можно поменять в админке.
 const DEFAULT_MODS = [
   {
-    id: 'full-pack', name: 'Liberty Chaos Pack — всё сразу', hotkey: 'F5–F9',
-    summary: 'Все пять модов одним архивом: транспорт, оружие, NPC, полёт и настройки.',
+    id: 'full-pack', name: 'Liberty Chaos Pack — всё сразу', hotkey: 'F5–F10',
+    summary: 'Все шесть модов одним архивом: транспорт, оружие, NPC, полёт, настройки и меню возможностей.',
     files: ['all'],
   },
   {
@@ -35,8 +35,13 @@ const DEFAULT_MODS = [
   },
   {
     id: 'mod-settings', name: 'Mod menu settings', hotkey: 'F9',
-    summary: 'Окно настроек всех модов: язык RU/EN, лимиты машин и NPC, переназначение клавиш.',
+    summary: 'Окно настроек всех модов: язык RU/EN, цвет меню, лимиты машин и NPC, переназначение клавиш.',
     files: ['ModSettings.net.cs'],
+  },
+  {
+    id: 'extras-menu', name: 'Меню возможностей', hotkey: 'F10',
+    summary: 'Плотность трафика и пешеходов, починка машины, телепорт к метке на карте, быстрое сохранение без кровати и тур по всем 200 голубям.',
+    files: ['ExtrasMenu.net.cs'],
   },
 ];
 

@@ -1,4 +1,4 @@
-// NpcSpawner — меню призыва любых NPC GTA IV с выбором количества.
+﻿// NpcSpawner — меню призыва любых NPC GTA IV с выбором количества.
 // Для ScriptHookDotNet (GTA IV). Кладётся в папку <GTA IV>\scripts\
 //
 // Клавиши (по умолчанию; F7, B, G, N, C, Delete меняются в Mod menu settings — F9):
@@ -63,6 +63,14 @@ public class NpcSpawner : Script
         public int Int(string k, int def, int min, int max) { int v; if (!int.TryParse(Get(k, ""), out v)) v = def; return Math.Max(min, Math.Min(max, v)); }
         public Keys Key(string k, Keys def) { try { return (Keys)Enum.Parse(typeof(Keys), Get(k, def.ToString()), true); } catch (Exception) { return def; } }
         public bool Ru { get { return Get("Language", "EN").ToUpper() == "RU"; } }
+        // основной цвет меню (MenuColor, меняется в F9). Тот же список — в ModSettings.
+        static readonly string[] ColorIds = { "Orange", "Red", "Pink", "Purple", "Blue", "Cyan", "Green", "Yellow", "White" };
+        static readonly Color[] ColorVals = {
+            Color.FromArgb(255, 140, 0), Color.FromArgb(220, 40, 40), Color.FromArgb(255, 80, 160), Color.FromArgb(150, 80, 230),
+            Color.FromArgb(40, 120, 255), Color.FromArgb(0, 200, 220), Color.FromArgb(60, 200, 80), Color.FromArgb(255, 210, 0), Color.FromArgb(230, 230, 230) };
+        public Color Accent { get { string id = Get("MenuColor", "Orange"); for (int i = 0; i < ColorIds.Length; i++) if (string.Compare(ColorIds[i], id, true) == 0) return ColorVals[i]; return ColorVals[0]; } }
+        // текст на выделенной строке: чёрный на светлом цвете, белый на тёмном
+        public Color SelText { get { Color c = Accent; return c.R * 0.299f + c.G * 0.587f + c.B * 0.114f > 140f ? Color.Black : Color.White; } }
     }
     readonly Cfg cfg = new Cfg();
     string T(string en, string ru) { return cfg.Ru ? ru : en; }
@@ -1100,30 +1108,33 @@ public class NpcSpawner : Script
 
         float w = 0.30f, x = 0.5f - w / 2f, y = 0.21f, rowH = 0.032f;
 
-        g.DrawRectangle(new RectangleF(x, y - 0.12f, w, 0.12f + rowH * VisibleRows + 0.115f), Color.FromArgb(190, 0, 0, 0));
-        g.DrawText(T("NPC SPAWNER", "ПРИЗЫВ NPC"), x + 0.01f, y - 0.117f, Color.Orange, fTitle);
+        g.DrawRectangle(new RectangleF(x, y - 0.12f, w, 0.12f + rowH * VisibleRows + 0.142f), Color.FromArgb(190, 0, 0, 0));
+        g.DrawText(T("NPC SPAWNER", "ПРИЗЫВ NPC"), x + 0.01f, y - 0.117f, cfg.Accent, fTitle);
         g.DrawText("<  " + CatName(cat.Name).ToUpper() + "  (" + (catIndex + 1) + "/" + categories.Count + ")  >", x + 0.01f, y - 0.077f, Color.White, fRow);
 
         // количество
-        g.DrawRectangle(new RectangleF(x + 0.01f, y - 0.042f, w - 0.02f, 0.032f), Color.FromArgb(120, 255, 140, 0));
+        g.DrawRectangle(new RectangleF(x + 0.01f, y - 0.042f, w - 0.02f, 0.032f), Color.FromArgb(120, cfg.Accent));
         g.DrawText(T("Count:  -  ", "Количество:  -  ") + count + "  +   (max " + MaxCount + ")", x + 0.02f, y - 0.038f, Color.White, fRow);
 
         for (int i = 0; i < VisibleRows && scroll + i < items.Count; i++)
         {
             int idx = scroll + i;
             float ry = y + i * rowH;
-            if (idx == selected) g.DrawRectangle(new RectangleF(x, ry, w, rowH), Color.FromArgb(200, 255, 140, 0));
-            g.DrawText(items[idx].Name, x + 0.01f, ry + 0.004f, idx == selected ? Color.Black : Color.White, fRow);
+            if (idx == selected) g.DrawRectangle(new RectangleF(x, ry, w, rowH), Color.FromArgb(200, cfg.Accent));
+            g.DrawText(items[idx].Name, x + 0.01f, ry + 0.004f, idx == selected ? cfg.SelText : Color.White, fRow);
         }
 
         float by = y + rowH * VisibleRows + 0.006f;
         g.DrawText((selected + 1) + "/" + items.Count + "   " + items[selected].Model + T("   alive: ", "   в мире: ") + spawned.Count + "/" + npcLimit, x + 0.01f, by, Color.LightGray, fSmall);
         g.DrawText(T("Enter spawn   +/- count   ", "Enter — призвать   +/- — кол-во   ") + keyRemoveMine + T(" remove mine", " — убрать своих"), x + 0.01f, by + 0.027f, Color.LightGray, fSmall);
-        g.DrawText(keyFight + T(" fight  ", " — драка  ") + keyGuard + T(" guards  ", " — охрана  ") + keyHunt + T(" hunt me  ", " — охота на меня  ") + keyCalm + T(" calm  ", " — успокоить  ") + keyClearAll + T(" clear ALL", " — убрать ВСЕХ"),
-            x + 0.01f, by + 0.054f, Color.Orange, fSmall);
+        // режимы — в две строки: одной строкой подсказка вылезала за правый край панели
+        g.DrawText(keyFight + T(" fight   ", " — драка   ") + keyGuard + T(" guards   ", " — охрана   ") + keyHunt + T(" hunt me", " — охота на меня"),
+            x + 0.01f, by + 0.054f, cfg.Accent, fSmall);
+        g.DrawText(keyCalm + T(" calm   ", " — успокоить   ") + keyClearAll + T(" clear ALL", " — убрать ВСЕХ"),
+            x + 0.01f, by + 0.081f, cfg.Accent, fSmall);
         string mode = fighters.Count > 0 ? T("FIGHT (", "ДРАКА (") + fighters.Count + ")"
                     : guards.Count > 0 ? (huntMode ? T("HUNTING YOU (", "ОХОТА НА ТЕБЯ (") : T("GUARDS (", "ОХРАНА (")) + guards.Count + ")"
                     : T("no mode", "режим не включён");
-        g.DrawText(T("Mode: ", "Режим: ") + mode, x + 0.01f, by + 0.081f, Color.White, fSmall);
+        g.DrawText(T("Mode: ", "Режим: ") + mode, x + 0.01f, by + 0.108f, Color.White, fSmall);
     }
 }

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Обратная связь — Liberty Chaos Pack</title>
+  <meta name="description" content="Сообщи о баге, предложи идею для мода или задай вопрос автору Liberty Chaos Pack.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500;600&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/">Liberty <span>Chaos</span></a>
+      <nav class="nav">
+        <a href="/">Моды</a>
+        <a href="/install">Установка</a>
+        <a href="/feedback" aria-current="page">Связь</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" style="padding-bottom:8px">
+      <div class="eyebrow">Обратная связь</div>
+      <h1>Нашёл баг или есть идея?</h1>
+      <p class="lead">Опиши, что случилось или что хочется добавить. Сообщение придёт автору модов. Если ждёшь ответа, оставь контакт: Telegram, Discord или почту.</p>
+    </section>
+
+    <section class="section" style="max-width:640px">
+      <form class="panel" id="fb-form" novalidate>
+        <fieldset class="topics">
+          <legend>Тема</legend>
+          <label class="chip"><input type="radio" name="topic" value="bug" checked> Баг</label>
+          <label class="chip"><input type="radio" name="topic" value="idea"> Идея</label>
+          <label class="chip"><input type="radio" name="topic" value="question"> Вопрос</label>
+          <label class="chip"><input type="radio" name="topic" value="other"> Другое</label>
+        </fieldset>
+        <div class="form-row">
+          <label><span>Имя <span class="opt">· необязательно</span></span>
+            <input id="fb-name" maxlength="60" autocomplete="nickname">
+          </label>
+          <label><span>Контакт для ответа <span class="opt">· необязательно</span></span>
+            <input id="fb-contact" maxlength="120" placeholder="@telegram или почта">
+          </label>
+        </div>
+        <label>Сообщение
+          <textarea id="fb-message" maxlength="2000" required placeholder="Например: при нажатии F5 в машине меню закрывается…" style="min-height:150px"></textarea>
+        </label>
+        <div class="counter" id="fb-count">0 / 2000</div>
+        <!-- ловушка для спам-ботов: людям не видна -->
+        <label class="trap" aria-hidden="true">Сайт <input id="fb-website" tabindex="-1" autocomplete="off"></label>
+        <div class="row">
+          <button class="btn primary" type="submit" id="fb-send">Отправить</button>
+        </div>
+        <p class="msg" id="fb-msg" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Фанатский проект для одиночной игры. Не связан с Rockstar Games.</div>
+  </footer>
+
+  <script src="/feedback.js"></script>
+</body>
+</html>

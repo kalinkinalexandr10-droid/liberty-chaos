@@ -1,7 +1,7 @@
 ﻿# Собирает архивы модов для сайта в site\packages\<id>.zip.
 # Внутри каждого архива — папка scripts\ (её распаковывают прямо в папку GTAIV) и УСТАНОВКА.txt.
 # Запуск из папки site:  powershell -ExecutionPolicy Bypass -File tools\build-packages.ps1
-# При первом запуске сервера архивы из packages\ регистрируются как версия 1.0.0.
+# Номер и описание версии — в packages\releases.json: сервер берёт их оттуда при запуске.
 param(
     [string]$Source = (Join-Path $PSScriptRoot '..\..\scripts')
 )
@@ -17,6 +17,7 @@ $mods = [ordered]@{
     'npc-spawner'  = @('NpcSpawner.net.cs', 'NpcSpawner')
     'fly-mode'     = @('FlyMode.net.cs')
     'mod-settings' = @('ModSettings.net.cs')
+    'extras-menu'  = @('ExtrasMenu.net.cs')
 }
 $all = @(); foreach ($k in $mods.Keys) { $all += $mods[$k] }
 $mods['full-pack'] = $all
@@ -30,7 +31,8 @@ LIBERTY CHAOS PACK — моды для GTA IV (Steam, Complete Edition 1.2.0.59)
 2. Распакуй ЭТОТ архив прямо в папку GTAIV — папка scripts\ должна оказаться рядом с GTAIV.exe.
 3. В Windows 11 выключи «Интеллектуальное управление приложениями»
    (Безопасность Windows -> Управление приложениями и браузером), иначе dinput8.dll блокируется.
-4. Запусти игру. Клавиши: F5 транспорт, F6 оружие, F7 NPC, F8 полёт, F9 настройки.
+4. Запусти игру. Клавиши: F5 транспорт, F6 оружие, F7 NPC, F8 полёт, F9 настройки,
+   F10 меню возможностей (трафик, починка, телепорт, сохранение, голуби).
 
 Ошибки модов пишутся в ScriptHookDotNet.log в папке игры.
 '@

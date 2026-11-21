@@ -1,4 +1,4 @@
-// Админка: вход, статистика скачиваний, загрузка новых версий, правка описаний, удаление версий.
+// Админка: вход, обратная связь, статистика скачиваний, загрузка новых версий, правка описаний, удаление версий.
 (function () {
   const $ = (id) => document.getElementById(id);
   const fmtSize = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + ' МБ' : Math.max(1, Math.round(b / 1024)) + ' КБ');
@@ -29,10 +29,71 @@
     return e;
   }
 
+  // ---------- обратная связь ----------
+  const TOPIC_NAMES = { bug: 'Баг', idea: 'Идея', question: 'Вопрос', other: 'Другое' };
+  let fbFilter = 'unread';
+
+  async function loadFeedback() {
+    const box = $('fb-list');
+    let data;
+    try { data = await api('/api/admin/feedback'); } catch (e) { box.textContent = ''; box.appendChild(el('p', { class: 'msg err', text: e.message })); return; }
+    const badge = $('fb-unread');
+    badge.hidden = !data.unread;
+    badge.textContent = String(data.unread);
+    document.title = (data.unread ? '(' + data.unread + ') ' : '') + 'Админка — Liberty Chaos Pack';
+
+    const list = fbFilter === 'unread' ? data.messages.filter((m) => !m.read) : data.messages;
+    box.textContent = '';
+    if (!list.length) {
+      box.appendChild(el('p', { class: 'empty', text: fbFilter === 'unread' ? 'Новых сообщений нет.' : 'Сообщений пока нет.' }));
+      return;
+    }
+    list.forEach((m) => box.appendChild(feedbackItem(m)));
+  }
+
+  function feedbackItem(m) {
+    const head = el('div', { class: 'fb-head' }, [
+      el('span', { class: 'fb-topic', text: TOPIC_NAMES[m.topic] || m.topic }),
+      el('span', { text: new Date(m.date).toLocaleString('ru-RU') }),
+      m.name ? el('span', { text: 'от ' + m.name }) : null,
+      m.contact ? el('span', { text: 'контакт: ' + m.contact }) : null,
+    ]);
+    const readBtn = el('button', { class: 'btn', type: 'button', text: m.read ? 'Отметить новым' : 'Прочитано' });
+    readBtn.addEventListener('click', async () => {
+      try {
+        await api('/api/admin/feedback/' + encodeURIComponent(m.id), {
+          method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ read: !m.read }),
+        });
+        loadFeedback();
+      } catch (e) { alert(e.message); }
+    });
+    const del = el('button', { class: 'btn danger', type: 'button', text: 'Удалить' });
+    const yes = el('button', { class: 'btn danger', type: 'button', text: 'Да, удалить', hidden: '' });
+    const no = el('button', { class: 'btn', type: 'button', text: 'Отмена', hidden: '' });
+    del.addEventListener('click', () => { del.hidden = true; yes.hidden = false; no.hidden = false; });
+    no.addEventListener('click', () => { del.hidden = false; yes.hidden = true; no.hidden = true; });
+    yes.addEventListener('click', async () => {
+      try { await api('/api/admin/feedback/' + encodeURIComponent(m.id), { method: 'DELETE' }); loadFeedback(); } catch (e) { alert(e.message); }
+    });
+    return el('article', { class: 'fb-item' + (m.read ? '' : ' unread') }, [
+      head,
+      el('p', { class: 'fb-text', text: m.message }),
+      el('div', { class: 'fb-actions' }, [readBtn, del, yes, no]),
+    ]);
+  }
+
+  document.querySelectorAll('[data-filter]').forEach((b) => b.addEventListener('click', () => {
+    fbFilter = b.getAttribute('data-filter');
+    document.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    loadFeedback();
+  }));
+  $('fb-refresh').addEventListener('click', loadFeedback);
+
   async function showDash() {
     $('login').hidden = true;
     $('dash').hidden = false;
     $('logout').hidden = false;
+    loadFeedback();
     const mods = await api('/api/admin/mods');
 
     // статистика

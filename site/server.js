@@ -1,4 +1,4 @@
-// Сайт Liberty Chaos Pack: страницы, скачивание модов со счётчиком и админка версий.
+// Сайт Liberty Chaos Pack: страницы, скачивание модов со счётчиком, обратная связь и админка.
 // Запуск: npm install, затем npm start → http://localhost:3000
 const express = require('express');
 const multer = require('multer');
@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const store = require('./lib/store');
 const auth = require('./lib/auth');
+const feedback = require('./lib/feedback');
 
 const PORT = Number(process.env.PORT) || 3000;
 const FILES_DIR = path.join(__dirname, 'files');       // загруженные архивы версий
@@ -55,6 +56,7 @@ app.get('/api/download/:id', (req, res) => {
   if (!mod) return res.status(404).send('Мод не найден');
   const v = req.query.version ? mod.versions.find((x) => x.version === req.query.version) : store.latest(mod);
   if (!v) return res.status(404).send('У этого мода пока нет загруженных версий');
+  if (!v.file) return res.status(410).send('Архив этой версии больше не хранится — скачай последнюю');
   const file = path.join(FILES_DIR, v.file);
   if (!file.startsWith(FILES_DIR) || !fs.existsSync(file)) return res.status(410).send('Файл версии не найден на сервере');
   // считаем только настоящие скачивания: HEAD-запросы проверялок ссылок файл не получают
@@ -63,6 +65,32 @@ app.get('/api/download/:id', (req, res) => {
     store.save();
   }
   res.download(file, `LibertyChaos-${mod.id}-${v.version}.zip`);
+});
+
+// ---------- обратная связь ----------
+app.post('/api/feedback', (req, res) => {
+  const b = req.body || {};
+  // поле-ловушка: человек его не видит, а спам-боты заполняют — делаем вид, что всё хорошо
+  if (b.website) return res.json({ ok: true });
+  if (String(b.message || '').trim().length < 5) return res.status(400).json({ error: 'Напиши сообщение хотя бы из пары слов' });
+  if (!feedback.sendAllowed(req.ip || 'local')) return res.status(429).json({ error: 'Слишком много сообщений подряд. Попробуй через 10 минут.' });
+  const r = feedback.add(b);
+  if (r.error) return res.status(400).json({ error: r.error });
+  res.json({ ok: true });
+});
+
+app.get('/api/admin/feedback', auth.requireAdmin, (req, res) => {
+  res.json({ unread: feedback.unreadCount(), messages: feedback.all() });
+});
+
+app.patch('/api/admin/feedback/:id', auth.requireAdmin, (req, res) => {
+  if (!feedback.setRead(req.params.id, req.body && req.body.read)) return res.status(404).json({ error: 'Сообщение не найдено' });
+  res.json({ ok: true });
+});
+
+app.delete('/api/admin/feedback/:id', auth.requireAdmin, (req, res) => {
+  if (!feedback.remove(req.params.id)) return res.status(404).json({ error: 'Сообщение не найдено' });
+  res.json({ ok: true });
 });
 
 // ---------- админка ----------
@@ -135,7 +163,7 @@ app.delete('/api/admin/mods/:id/versions/:version', auth.requireAdmin, (req, res
   const i = mod.versions.findIndex((v) => v.version === req.params.version);
   if (i < 0) return res.status(404).json({ error: 'Версия не найдена' });
   const [v] = mod.versions.splice(i, 1);
-  fs.rm(path.join(FILES_DIR, v.file), { force: true }, () => {});
+  if (v.file) fs.rm(path.join(FILES_DIR, v.file), { force: true }, () => {});
   store.save();
   res.json({ ok: true });
 });
@@ -152,22 +180,46 @@ app.use((err, req, res, next) => {
 // ---------- страницы ----------
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
-// ---------- первый запуск ----------
-// Если у мода ещё нет версий, а в packages/ лежит собранный архив — регистрируем его как 1.0.0.
-function seedFromPackages() {
-  if (!fs.existsSync(PACKAGES_DIR)) return 0;
+// ---------- версии из репозитория ----------
+// packages/releases.json — история версий каждого мода, packages/<id>.zip — архив его последней версии.
+// При запуске добавляем в каталог версии, которых там ещё нет. Скачать можно последнюю версию:
+// старых архивов в репозитории не храним, у них остаётся только запись в истории.
+const cmpVersion = (a, b) => {
+  const pa = a.split('.').map(Number), pb = b.split('.').map(Number);
+  for (let i = 0; i < 3; i++) { const d = (pb[i] || 0) - (pa[i] || 0); if (d) return d; }
+  return 0;
+};
+
+function syncReleases() {
+  const manifestFile = path.join(PACKAGES_DIR, 'releases.json');
+  if (!fs.existsSync(manifestFile)) return 0;
+  let manifest;
+  try { manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8')); } catch (e) { console.error('releases.json:', e.message); return 0; }
   let n = 0;
   for (const mod of store.load().mods) {
-    if (mod.versions.length) continue;
+    const releases = Array.isArray(manifest[mod.id]) ? manifest[mod.id].filter((r) => r && VERSION_RE.test(r.version)) : [];
+    if (!releases.length) continue;
+    releases.sort((a, b) => cmpVersion(a.version, b.version));
+    const newest = releases[0].version;
     const src = path.join(PACKAGES_DIR, `${mod.id}.zip`);
-    if (!fs.existsSync(src)) continue;
-    const fileName = `${mod.id}-1.0.0.zip`;
-    fs.copyFileSync(src, path.join(FILES_DIR, fileName));
-    mod.versions.push({
-      version: '1.0.0', date: new Date().toISOString(), size: fs.statSync(src).size, downloads: 0,
-      changelog: 'Первая версия.', file: fileName,
-    });
-    n++;
+    for (const r of releases) {
+      if (mod.versions.find((v) => v.version === r.version)) continue;
+      let file = null, size = 0;
+      if (r.version === newest && fs.existsSync(src)) {
+        file = `${safeName(mod.id)}-${safeName(r.version)}.zip`;
+        fs.copyFileSync(src, path.join(FILES_DIR, file));
+        size = fs.statSync(src).size;
+      }
+      mod.versions.push({
+        version: r.version,
+        date: new Date(r.date || Date.now()).toISOString(),
+        size, downloads: 0,
+        changelog: String(r.changelog || '').slice(0, 4000),
+        file,
+      });
+      n++;
+    }
+    mod.versions.sort((a, b) => cmpVersion(a.version, b.version));
   }
   if (n) store.save();
   return n;
@@ -178,12 +230,12 @@ function seedFromPackages() {
 let newPass = null;
 if (process.env.ADMIN_PASSWORD) auth.setPassword(process.env.ADMIN_PASSWORD);
 else newPass = auth.ensurePassword();
-const seeded = seedFromPackages();
+const seeded = syncReleases();
 
 app.listen(PORT, () => {
   console.log(`Liberty Chaos site: http://localhost:${PORT}`);
   console.log(`Админка: http://localhost:${PORT}/admin`);
-  if (seeded) console.log(`Добавлено архивов из packages/: ${seeded}`);
+  if (seeded) console.log(`Добавлено версий из packages/releases.json: ${seeded}`);
   if (newPass) {
     console.log('');
     console.log('  Пароль админки (показывается ОДИН раз, запиши его): ' + newPass);
