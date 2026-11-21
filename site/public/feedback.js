@@ -7,6 +7,20 @@
   const updateCount = () => { $('fb-count').textContent = text.value.length + ' / 2000'; };
   text.addEventListener('input', updateCount);
 
+  // бумажный самолётик вылетает из кнопки «Отправить» (CSS .plane; при «уменьшить движение» не показываем)
+  function launchPlane(btn) {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const r = btn.getBoundingClientRect();
+    const p = document.createElement('div');
+    p.className = 'plane';
+    p.setAttribute('aria-hidden', 'true');
+    p.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 11.5 22 3l-7.5 19-3.2-7.3z"/><path d="M11.3 14.7 22 3 8 13z" opacity=".6"/></svg>';
+    p.style.left = (r.left + r.width / 2 - 17) + 'px';
+    p.style.top = (r.top + r.height / 2 - 17) + 'px';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1200);
+  }
+
   function msg(t, ok) {
     $('fb-msg').textContent = t;
     $('fb-msg').className = 'msg ' + (ok ? 'ok' : 'err');
@@ -36,6 +50,7 @@
       form.reset();
       updateCount();
       msg('Спасибо! Сообщение отправлено.', true);
+      launchPlane($('fb-send'));
     } catch (err) {
       msg(err.message === 'Failed to fetch' ? 'Нет связи с сайтом. Проверь интернет и попробуй ещё раз.' : err.message, false);
     }
